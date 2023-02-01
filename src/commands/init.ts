@@ -18,12 +18,11 @@ const commands: ICommand[] = [
   {
     name: "play",
     description:
-      "검색어(term) 을 넣어 노래를 재생합니다.\n/play 후 tap 을 눌러 검색어를 추가할수있습니다!",
+      "검색어(term) 을 넣어 노래를 재생합니다.\n/p후 tap 을 눌러 검색어를 추가할수있습니다!",
     options: [
       {
         name: "term",
-        description:
-          "term (youtube 정책 , 저작권 설정이 되어있는 노래는 검색이 되지 않을 수 있습니다. )\n검색어(spotipy 기반) | spotipy url | youtube url",
+        description: "검색어 | spotipy url | youtube url",
         type: ApplicationCommandOptionType.String,
         required: true,
       },

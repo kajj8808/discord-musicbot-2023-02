@@ -12,6 +12,10 @@ export default async ({ client, interaction }: Skip) => {
   const voiceChannel = getVoiceChannel(interaction, client);
   const queue = client.disTube.getQueue(voiceChannel);
   await interaction.deferReply();
+  if (!voiceChannel) {
+    await interaction.editReply("join voicechannel!");
+    return;
+  }
   if (!queue) {
     await interaction.editReply("not found queue...");
     return;
