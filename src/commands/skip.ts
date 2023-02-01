@@ -15,11 +15,8 @@ export default async ({ client, interaction }: Skip) => {
       interaction.reply("마지막 곡입니다~");
     }
   });
-  const { username, discriminator } = interaction.member.user;
   await interaction.deferReply();
-  const skipMessage = await skipEmbed({
-    username: `${username}#${discriminator}`,
-  });
+  const skipMessage = await skipEmbed();
   await interaction.editReply({
     embeds: [skipMessage],
   });

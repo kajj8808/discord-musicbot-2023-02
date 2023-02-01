@@ -22,7 +22,7 @@ export default async ({ client, interaction }: Play) => {
     client.disTube.voices.join(voiceChannel);
     client.disTube.play(voiceChannel, songInfo);
     await interaction.deferReply();
-    const playMessage = await playEmbed();
+    const playMessage = await playEmbed(songInfo);
     await interaction.editReply({
       embeds: [playMessage],
     });
