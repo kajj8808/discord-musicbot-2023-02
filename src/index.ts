@@ -44,7 +44,7 @@ client.disTube = new DisTube(client, {
 
 client.on("ready", () => {
   console.log("bot is ready!");
-  //initalCommandLoading();
+  initalCommandLoading();
 });
 
 client.on("interactionCreate", async (interaction) => {
