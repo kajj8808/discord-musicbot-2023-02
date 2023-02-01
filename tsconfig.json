@@ -1,0 +1,13 @@
+{
+  "include": ["src"],
+  "compilerOptions": {
+    "outDir": "build",
+    "target": "ES6",
+    "lib": [
+      "ES6"
+    ] /* 어떤 환경에서 실행되고있는지. 웹이면 DOM 으로가능 ES6 , DOM */,
+    "strict": false, // strict 모드 엄청나게 보호해주는 모드
+    "allowJs": true, // 이걸 true 로 활성화 시켜주면 프로젝트 내부의 것을 ./myPackage 이렇게 를 쓸수가있음. 쓰는 이유는 코드를 이전할때 js 에서 ts로 이때 사용을 가장많이함.
+    "moduleResolution": "node"
+  }
+}

@@ -1,0 +1,30 @@
+# discordMusicBot
+[NodeJsVersion 18.13.0](https://nodejs.org)
+[DiscordJsVersion 14.7.1](https://discord.js.org/)
+
+discordMusicBot(only TypeScript)
+
+## Commad
+- [>] play (url , search)
+- [x] skip
+- [>] stop
+
+## Config 
+[Discord Get Token](https://discord.com/developers/applications/)
+
+[Spotify Api](https://developer.spotify.com/documentation/web-api/)
+
+## ENV LIST
+
+CLIENT_SECRET=discord bot secret
+
+CLIENT_ID=discord bot id
+
+BOT_TOKEN=discord bot token
+
+SPOTIFY_CLIENT_ID=spotify api CLIENT_ID
+
+SPOTIFY_CLIENT_SECRET=spotify api CLIENT_SECRET
+
+## 참고한 StackOverflow
+[interaction reply](https://stackoverflow.com/questions/67413046/slash-commands-unknown-interaction)
