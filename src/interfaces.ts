@@ -1,5 +1,5 @@
 import { Client as botClient } from "discord.js";
-import { DisTube, SearchResult, Song } from "distube";
+import { DisTube, Song } from "distube";
 
 export interface IBot extends botClient<boolean> {
   disTube?: DisTube;

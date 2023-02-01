@@ -1,5 +1,5 @@
 import { ChatInputCommandInteraction } from "discord.js";
-import { IBot, ISong } from "../interfaces";
+import { IBot } from "../interfaces";
 import skipEmbed from "../embeds/skipEmbed";
 import getVoiceChannel from "../utils/getVoiceChannel";
 

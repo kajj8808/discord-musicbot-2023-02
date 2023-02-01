@@ -1,9 +1,5 @@
-import {
-  Client as botClient,
-  Events as DiscodeEvents,
-  GatewayIntentBits,
-} from "discord.js";
-import { DisTube, Events as DistubeEvents, SearchResult, Song } from "distube";
+import { Client as botClient, GatewayIntentBits } from "discord.js";
+import { DisTube } from "distube";
 import { SpotifyPlugin } from "@distube/spotify";
 import getEnv from "./utils/getEnv";
 import play from "./commands/play";
@@ -44,7 +40,7 @@ client.disTube = new DisTube(client, {
 
 client.on("ready", () => {
   console.log("bot is ready!");
-  initalCommandLoading();
+  //initalCommandLoading();
 });
 
 client.on("interactionCreate", async (interaction) => {
@@ -61,6 +57,10 @@ client.on("interactionCreate", async (interaction) => {
       await client.disTube.stop(getVoiceChannel(interaction, client));
       break;
   }
+});
+
+client.on("error", (err) => {
+  /* play 실행도중 skip 이 들어올시 interaction 이 사라지는 error 가 생겨 작성..  */
 });
 
 client.login(getEnv("BOT_TOKEN"));
