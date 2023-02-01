@@ -1,5 +1,9 @@
-import { Client as botClient, GatewayIntentBits } from "discord.js";
-import { DisTube, SearchResult, Song } from "distube";
+import {
+  Client as botClient,
+  Events as DiscodeEvents,
+  GatewayIntentBits,
+} from "discord.js";
+import { DisTube, Events as DistubeEvents, SearchResult, Song } from "distube";
 import { SpotifyPlugin } from "@distube/spotify";
 import getEnv from "./utils/getEnv";
 import play from "./commands/play";
@@ -19,7 +23,6 @@ const client: IBot = new botClient({
 
 client.disTube = new DisTube(client, {
   leaveOnFinish: true,
-  emitAddSongWhenCreatingQueue: true,
   plugins: [
     new SpotifyPlugin({
       api: {
@@ -49,18 +52,15 @@ client.on("interactionCreate", async (interaction) => {
 
   switch (interaction.commandName) {
     case "play":
-      play({ interaction, client });
+      await play({ interaction, client });
       break;
     case "skip":
-      skip({ interaction, client });
+      await skip({ interaction, client });
       break;
     case "stop":
-      client.disTube.stop(getVoiceChannel(interaction, client));
+      await client.disTube.stop(getVoiceChannel(interaction, client));
       break;
   }
 });
 
-client.on("error", (err) => {
-  console.log(err);
-});
 client.login(getEnv("BOT_TOKEN"));

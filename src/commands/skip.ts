@@ -10,12 +10,18 @@ interface Skip {
 
 export default async ({ client, interaction }: Skip) => {
   const voiceChannel = getVoiceChannel(interaction, client);
-  client.disTube.skip(voiceChannel).catch((err) => {
-    if (err.errorCode === "NO_UP_NEXT") {
-      interaction.reply("마지막 곡입니다~");
-    }
-  });
+  const queue = client.disTube.getQueue(voiceChannel);
   await interaction.deferReply();
+  if (!queue) {
+    await interaction.editReply("not found queue...");
+    return;
+  }
+  if (queue.songs.length === 1) {
+    await interaction.editReply("last song... bye bye 👋");
+    client.disTube.stop(voiceChannel);
+    return;
+  }
+  client.disTube.skip(voiceChannel);
   const skipMessage = await skipEmbed();
   await interaction.editReply({
     embeds: [skipMessage],

@@ -6,8 +6,7 @@ import randomColor from "../utils/randomColor";
 export default async (songInfo) =>
   new EmbedBuilder()
     .setColor(randomColor())
-    .setTitle(`▶️ [${songInfo.name}]`)
+    .setTitle(`[${songInfo.name}]`)
     .setDescription(`${songInfo.formattedDuration}`)
-    .setImage(songInfo.thumbnail)
-    //.setThumbnail(songInfo.thumbnail)
+    .setImage(`https://i1.ytimg.com/vi/${songInfo.id}/maxresdefault.jpg`)
     .setTimestamp();

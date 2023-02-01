@@ -19,6 +19,10 @@ export default async ({ client, interaction }: Play) => {
   if (playList.length !== 0) {
     const songInfo = playList.shift();
     const voiceChannel = getVoiceChannel(interaction, client);
+    if (!voiceChannel) {
+      interaction.reply("먼저 음성채널에 들어와주세요~");
+      return;
+    }
     client.disTube.voices.join(voiceChannel);
     client.disTube.play(voiceChannel, songInfo);
     await interaction.deferReply();
