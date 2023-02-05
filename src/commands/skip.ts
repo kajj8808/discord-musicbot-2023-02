@@ -1,7 +1,7 @@
 import { ChatInputCommandInteraction } from "discord.js";
 import { IBot } from "../interfaces";
 import skipEmbed from "../embeds/skipEmbed";
-import getVoiceChannel from "../utils/getVoiceChannel";
+import { getVoiceChannel } from "../utils/getChannels";
 
 interface Skip {
   client: IBot;

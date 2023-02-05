@@ -1,11 +1,11 @@
 import { ChatInputCommandInteraction } from "discord.js";
-import { SearchResult } from "distube";
-import { IBot } from "../interfaces";
+import { Queue, Song } from "distube";
+import addEmbed from "../embeds/addEmbed";
 import playEmbed from "../embeds/playEmbed";
+import { IBot } from "../interfaces";
 
-import getVoiceChannel from "../utils/getVoiceChannel";
-
-const playList: SearchResult[] = [];
+import { getMessageChannel, getVoiceChannel } from "../utils/getChannels";
+import sleep from "../utils/sleep";
 
 interface Play {
   client: IBot;
@@ -13,22 +13,30 @@ interface Play {
 }
 
 export default async ({ client, interaction }: Play) => {
+  await interaction.deferReply();
   const term = interaction.options.getString("term");
   const songInfos = await client.disTube.search(term);
-  playList.push(songInfos[0]);
-  if (playList.length !== 0) {
-    const songInfo = playList.shift();
-    const voiceChannel = getVoiceChannel(interaction, client);
-    if (!voiceChannel) {
-      interaction.reply("먼저 음성채널에 들어와주세요~");
-      return;
-    }
-    client.disTube.voices.join(voiceChannel);
-    client.disTube.play(voiceChannel, songInfo);
-    await interaction.deferReply();
-    const playMessage = await playEmbed(songInfo);
-    await interaction.editReply({
-      embeds: [playMessage],
-    });
+
+  const songInfo = songInfos[0];
+  const voiceChannel = getVoiceChannel(interaction, client);
+  if (!voiceChannel) {
+    interaction.reply("먼저 음성채널에 들어와주세요~");
+    return;
   }
+  client.disTube.voices.join(voiceChannel);
+  client.disTube.play(voiceChannel, songInfo, {
+    textChannel: getMessageChannel(interaction),
+  });
+  await interaction.editReply("play 실행중입니다...");
+  await sleep(3);
+  await interaction.deleteReply();
 };
+
+export async function sendPlayMessage(queue: Queue, song: Song) {
+  const playMessage = await playEmbed({ ...song });
+  queue.textChannel.send({ embeds: [playMessage] });
+}
+export async function sendSongAddMessage(queue: Queue, song: Song) {
+  const addMessage = await addEmbed({ ...song });
+  queue.textChannel.send({ embeds: [addMessage] });
+}

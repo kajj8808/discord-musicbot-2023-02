@@ -2,11 +2,11 @@ import { Client as botClient, GatewayIntentBits } from "discord.js";
 import { DisTube } from "distube";
 import { SpotifyPlugin } from "@distube/spotify";
 import getEnv from "./utils/getEnv";
-import play from "./commands/play";
+import play, { sendPlayMessage, sendSongAddMessage } from "./commands/play";
 import { IBot } from "./interfaces";
 import skip from "./commands/skip";
 import { initalCommandLoading } from "./commands/init";
-import getVoiceChannel from "./utils/getVoiceChannel";
+import { getVoiceChannel } from "./utils/getChannels";
 
 const client: IBot = new botClient({
   intents: [
@@ -33,8 +33,7 @@ client.disTube = new DisTube(client, {
     format: "audioonly",
     liveBuffer: 60000,
     dlChunkSize: 1024 * 1024 * 4,
-    /*     quality: "highestaudio", //      quality?: 'lowest' | 'highest' | 'highestaudio' | 'lowestaudio' | 'highestvideo' | 'lowestvideo' | string | number | string[] | number[];
-    filter: "audioonly", */
+    filter: "audioonly",
   },
 });
 
@@ -62,5 +61,17 @@ client.on("interactionCreate", async (interaction) => {
 client.on("error", (err) => {
   /* play 실행도중 skip 이 들어올시 interaction 이 사라지는 error 가 생겨 작성..  */
 });
+
+client.disTube.on("addSong", async (queue, song) => {
+  if (queue.voice.audioResource.started) {
+    sendSongAddMessage(queue, song);
+  }
+});
+
+client.disTube.on("playSong", async (queue, song) => {
+  sendPlayMessage(queue, song);
+});
+
+client.disTube.on("error", console.log);
 
 client.login(getEnv("BOT_TOKEN"));
