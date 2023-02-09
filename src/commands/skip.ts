@@ -2,6 +2,7 @@ import { ChatInputCommandInteraction } from "discord.js";
 import { IBot } from "../interfaces";
 import skipEmbed from "../embeds/skipEmbed";
 import { getVoiceChannel } from "../utils/getChannels";
+import sleep from "../utils/sleep";
 
 interface Skip {
   client: IBot;
@@ -30,4 +31,6 @@ export default async ({ client, interaction }: Skip) => {
   await interaction.editReply({
     embeds: [skipMessage],
   });
+  await sleep(10);
+  await interaction.deleteReply();
 };
