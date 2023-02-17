@@ -5,7 +5,7 @@
 discordMusicBot(only TypeScript)
 
 ## Commad
-- [>] play (url , search)
+- [X] play (url , search)
 - [x] skip
 - [>] stop
 
