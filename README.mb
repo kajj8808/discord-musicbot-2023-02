@@ -7,7 +7,7 @@ discordMusicBot(only TypeScript)
 ## Commad
 - [X] play (url , search)
 - [x] skip
-- [>] stop
+- [x] stop
 
 ## Config 
 [Discord Get Token](https://discord.com/developers/applications/)
